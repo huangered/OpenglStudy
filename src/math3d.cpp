@@ -1,8 +1,39 @@
 #include "stdafx.h"
 #include "math3d.h"
 
-///////////////////////////////////////////////////////////////////////////////
-// Creates a 4x4 rotation matrix, takes radians NOT degrees
+void LoadIdentity44(Matrix44f m)
+{
+	#define M(row,col)  m[col*4+row]
+	M(0,0) = 1.0f;
+	M(0,1) = 0.0f;
+	M(0,2) = 0.0f;
+	M(0,3) = 0.0f;
+
+	M(1,0) = 0.0f;
+	M(1,1) = 1.0f;
+	M(1,2) = 0.0f;
+	M(1,3) = 0.0f;
+
+	M(2,0) = 0.0f;
+	M(2,1) = 0.0f;
+	M(2,2) = 1.0f;
+	M(2,3) = 0.0f;
+
+	M(3,0) = 0.0f;
+	M(3,1) = 0.0f;
+	M(3,2) = 0.0f;
+	M(3,3) = 1.0f;
+	#undef M
+}
+
+
+void CrossProduct(Vector3f result, const Vector3f u, const Vector3f v)
+{
+	result[0] =  u[1] * v[2] - v[1] * u[2];
+	result[1] = -u[0] * v[2] + v[0] * u[2];
+	result[2] =  u[0] * v[1] - v[0] * u[1];
+}
+
 void RotationMatrix44(Matrix44f m, float angle, float x, float y, float z)
 {
 	float mag, s, c;
