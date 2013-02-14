@@ -39,3 +39,5 @@ void CrossProduct(Vector3f result, const Vector3f u, const Vector3f v);
 ///////////////////////////////////////////////////////////////////////////////
 // Creates a 4x4 rotation matrix, takes radians NOT degrees
 void RotationMatrix44(Matrix44f m, float angle, float x, float y, float z);
+void SetMatrixColumn44(Matrix44f m, const Vector3f v, int col);
+void GetMatrix(Matrix44f matrix, const Vector3f vOrigin, const Vector3f vUp, const Vector3f vForward);

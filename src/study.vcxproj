@@ -81,15 +81,17 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="glCommonObject.h" />
     <ClInclude Include="glObject.h" />
     <ClInclude Include="math3d.h" />
-    <ClInclude Include="Camera.h" />
+    <ClInclude Include="glCamera.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="glCommonObject.cpp" />
     <ClCompile Include="math3d.cpp" />
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="glCamera.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

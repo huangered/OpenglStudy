@@ -91,3 +91,29 @@ void RotationMatrix44(Matrix44f m, float angle, float x, float y, float z)
     #undef M
 }
 
+
+void GetMatrix(Matrix44f matrix, const Vector3f vOrigin, const Vector3f vUp, const Vector3f vForward)
+{
+	Vector3f vCross;
+	CrossProduct(vCross,vUp,vForward);
+
+	SetMatrixColumn44(matrix, vCross, 0);
+	matrix[3] = 0.0f;
+           
+    // Y Column
+	SetMatrixColumn44(matrix, vUp, 1);
+    matrix[7] = 0.0f;       
+                                    
+    // Z Column
+	SetMatrixColumn44(matrix, vForward, 2);
+    matrix[11] = 0.0f;
+
+    // Translation (already done)
+	SetMatrixColumn44(matrix, vOrigin, 3);
+	matrix[15] = 1.0f;
+}
+
+void SetMatrixColumn44(Matrix44f m, const Vector4f v, int col)
+{
+	{ memcpy(m + (4 * col), v, sizeof(float) * 4); }
+}

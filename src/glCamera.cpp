@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Camera.h"
+#include "glCamera.h"
 #include <math.h>
 glCamera::glCamera(void)
 {
@@ -16,8 +16,7 @@ glCamera::glCamera(void)
 	// Forward is -Z (default OpenGL)
     vForward[0] = 0.0f; 
 	vForward[1] = 0.0f; 
-	vForward[2] = -1.0f;
-
+	vForward[2] = -1.0f;  
 }	 
 
 glCamera::~glCamera(void)

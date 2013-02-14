@@ -4,12 +4,14 @@
 
 #include <GL/glew.h>
 #include <GL/glut.h>
-#include "Camera.h"
+#include "glCamera.h"
+#include "glCommonObject.h"
 #include <math.h>
 #include <stdlib.h>
 
 glCamera camera;
-float location=-10.0f;
+glCommonObject obj;
+
 unsigned int interval=500;
 void RenderScene(void);
 void SpecialKeys(int key, int x, int y);
@@ -21,6 +23,7 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA);
+	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	glutInitWindowSize(400,400);
 	glutCreateWindow("simple");
 	glutDisplayFunc(RenderScene);
@@ -77,12 +80,12 @@ void RenderScene(void)
         
     glPushMatrix();
         camera.ApplyCameraTransform();
-		camera.show();
+		//camera.show();
 		glPushMatrix();
-			if(location>10.0f){location=-10.0f;}
-			glTranslatef(location,0.0f,0.0f);
-			location+=1.0f;
-			glutSolidCube(1);
+			obj.RotateLocalZ(3.14/180);
+			obj.show();
+			obj.ApplyActorTransform();
+			obj.draw();
 		glPopMatrix();
 		glBegin(GL_LINES);
 			glVertex3f(-100,0,0);
