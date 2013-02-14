@@ -8,7 +8,9 @@
 #include <math.h>
 #include <stdlib.h>
 
-Camera camera;
+glCamera camera;
+float location=-10.0f;
+unsigned int interval=500;
 void RenderScene(void);
 void SpecialKeys(int key, int x, int y);
 void SetupRC();
@@ -24,7 +26,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	glutDisplayFunc(RenderScene);
 	glutReshapeFunc(ChangeSize);
 	glutKeyboardFunc(KeyFunction);
-	//glutTimerFunc(500,TimerFunction,1);
+	glutTimerFunc(interval,TimerFunction,1);
 	glutSpecialFunc(SpecialKeys);
 
 	SetupRC();
@@ -47,19 +49,19 @@ void KeyFunction(unsigned char key, int x, int y)
 		glutPostRedisplay();
 		break;
 	case 'a':
-		camera.RotateLocalZ(0.17f);
+		camera.MoveRight(1.0f);
 		glutPostRedisplay();
 		break;
 	case 'd':
-		camera.RotateLocalZ(-0.17f);
+		camera.MoveRight(-1.0f);
 		glutPostRedisplay();
 		break;
-	case 'q':
-		camera.RotateLocalX(-0.17f);
+	case 'x':
+		camera.MoveUp(-1.0f);
 		glutPostRedisplay();
 		break;
-	case 'e':
-		camera.RotateLocalX(0.17f);
+	case ' ':
+		camera.MoveUp(1.0f);
 		glutPostRedisplay();
 		break;
 	default:
@@ -74,11 +76,14 @@ void RenderScene(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
     glPushMatrix();
-
         camera.ApplyCameraTransform();
 		camera.show();
-
-		glutSolidCube(1);
+		glPushMatrix();
+			if(location>10.0f){location=-10.0f;}
+			glTranslatef(location,0.0f,0.0f);
+			location+=1.0f;
+			glutSolidCube(1);
+		glPopMatrix();
 		glBegin(GL_LINES);
 			glVertex3f(-100,0,0);
 			glVertex3f(100,0,0);
@@ -135,7 +140,7 @@ void TimerFunction(int value)
 {
     // Redraw the scene with new coordinates
     glutPostRedisplay();
-    glutTimerFunc(500,TimerFunction, 1);
+    glutTimerFunc(interval,TimerFunction, 1);
 }
 void ChangeSize(int w, int h)
 {
@@ -155,7 +160,7 @@ void ChangeSize(int w, int h)
     glLoadIdentity();
 	
     // Set the clipping volume
-    gluPerspective(35.0f, fAspect, 1.0f, 50.0f);
+    gluPerspective(35.0f, fAspect, 1.0f, 500.0f);
         
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();

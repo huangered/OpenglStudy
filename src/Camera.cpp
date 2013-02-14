@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Camera.h"
 #include <math.h>
-Camera::Camera(void)
+glCamera::glCamera(void)
 {
 	// At origin
 	vOrigin[0] = 0.0f;
@@ -20,26 +20,53 @@ Camera::Camera(void)
 
 }	 
 
-Camera::~Camera(void)
+glCamera::~glCamera(void)
 {
-	
+	printf("Camera shut down.");	
 }
 
-void Camera::MoveForward(float fDelta)
+void glCamera::SetOrigin(const Vector3f vPoint)
+{
+	CopyVector3(vOrigin,vPoint);
+}
+
+void glCamera::SetOrigin(float x, float y, float z)
+{
+	vOrigin[0] = x;
+	vOrigin[1] = y;
+	vOrigin[2] = z;
+}
+
+float glCamera::GetOriginX(void)
+{
+	return vOrigin[0]; 
+}
+
+float glCamera::GetOriginY(void) 
+{
+	return vOrigin[1]; 
+}
+
+float glCamera::GetOriginZ(void)
+{
+	return vOrigin[2];
+}
+
+void glCamera::MoveForward(float fDelta)
 {		
 	vOrigin[0] += vForward[0] * fDelta;
 	vOrigin[1] += vForward[1] * fDelta;
 	vOrigin[2] += vForward[2] * fDelta;
 }
 
-void Camera::MoveUp(float fDelta)
+void glCamera::MoveUp(float fDelta)
 {
 	vOrigin[0] += vUp[0] * fDelta;
 	vOrigin[1] += vUp[1] * fDelta;
 	vOrigin[2] += vUp[2] * fDelta;
 }
 
-void Camera::MoveRight(float fDelta)
+void glCamera::MoveRight(float fDelta)
 {
 	Vector3f vCross;
 	CrossProduct(vCross,vUp,vForward);
@@ -49,7 +76,7 @@ void Camera::MoveRight(float fDelta)
 	vOrigin[2] += vCross[2] * fDelta;
 }
 
-void Camera::RotateLocalX(float fAngle)
+void glCamera::RotateLocalX(float fAngle)
 {
 	Matrix44f rotMat;
 	Vector3f vCross;
@@ -70,7 +97,7 @@ void Camera::RotateLocalX(float fAngle)
 	CopyVector3(vUp, newVect);
 }
 
-void Camera::RotateLocalY(float fAngle)
+void glCamera::RotateLocalY(float fAngle)
 {
 	Matrix44f rotMat;
 
@@ -88,7 +115,7 @@ void Camera::RotateLocalY(float fAngle)
 	CopyVector3(vForward, newVect);
 }
 		
-void Camera::RotateLocalZ(float fAngle)
+void glCamera::RotateLocalZ(float fAngle)
 {
 	Matrix44f rotMat;
 
@@ -103,8 +130,8 @@ void Camera::RotateLocalZ(float fAngle)
 	CopyVector3(vUp, newVect);
 }
 
-void Camera::ApplyCameraTransform()
-{
+void glCamera::ApplyCameraTransform()
+{	 
 	Matrix44f m;
 
 	GetCameraOrientation(m);
@@ -114,7 +141,7 @@ void Camera::ApplyCameraTransform()
 	glTranslatef(-vOrigin[0], -vOrigin[1], -vOrigin[2]);
 }
 
-void Camera::GetCameraOrientation(Matrix44f m)
+void glCamera::GetCameraOrientation(Matrix44f m)
 {
 	Vector3f x, z;
 
@@ -149,10 +176,9 @@ void Camera::GetCameraOrientation(Matrix44f m)
 	#undef M 
 }
 
-void Camera::show()
+void glCamera::show()
 {
 	printf("Origin :=%5.3f    ;%5.3f    ;%5.3f\n",vOrigin[0],vOrigin[1],vOrigin[2]);
 	printf("Forward:=%5.3f    ;%5.3f    ;%5.3f\n",vForward[0],vForward[1],vForward[2]);
 	printf("Up     :=%5.3f    ;%5.3f    ;%5.3f\n",vUp[0],vUp[1],vUp[2]);
-
 }

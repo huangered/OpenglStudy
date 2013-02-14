@@ -3,36 +3,35 @@
  * code by Huang yi.
  */
 #ifndef _Camera_
-#define _Camera_
-
-#include <GL\glew.h>
-#include <GL\glut.h>
-#include "math3d.h"
-class Camera
-{
-protected:
-	Vector3f vOrigin;
-	Vector3f vForward;
-	Vector3f vUp;
-
+#define _Camera_ 
+#include "glObject.h"
+class glCamera : public glObject
+{				 
 public:
-	Camera(void);
-	~Camera(void);
+	glCamera(void);
+	~glCamera(void);
+
+	// Set Origin Location
+	virtual void SetOrigin(const Vector3f vPoint);
+	virtual void SetOrigin(float x, float y, float z);
+	virtual float GetOriginX(void);
+	virtual float GetOriginY(void);
+	virtual float GetOriginZ(void);
 
 	// Move along axis
-	void MoveForward(float fDelta);
-	void MoveUp(float fDelta);
-	void MoveRight(float fDelta);
+	virtual void MoveForward(float fDelta);
+	virtual void MoveUp(float fDelta);
+	virtual void MoveRight(float fDelta);
 
-	// rotate 
-	void RotateLocalX(float fAngle);
-	void RotateLocalY(float fAngle);
-	void RotateLocalZ(float fAngle);
+	// rotate camera
+	virtual void RotateLocalX(float fAngle);
+	virtual void RotateLocalY(float fAngle);
+	virtual void RotateLocalZ(float fAngle);
 	
 	void ApplyCameraTransform();
 	void GetCameraOrientation(Matrix44f m);		
 
-	void show();
+	virtual void show();
 };
 
 #endif // !_Camera_

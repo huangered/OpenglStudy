@@ -81,6 +81,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="glObject.h" />
     <ClInclude Include="math3d.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="stdafx.h" />
