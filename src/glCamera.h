@@ -2,10 +2,14 @@
  * implementation of the camera class
  * code by Huang yi.
  */
-#ifndef _Camera_
-#define _Camera_ 
-#include "glObject.h"
-class glCamera : public glObject
+#ifndef _Camera_H_
+#define _Camera_H_
+
+#include "Common.h"
+#include "glObjectBase.h"
+#include "math3d.h"
+
+class glCamera : public glObjectBase
 {				 
 public:
 	glCamera(void);

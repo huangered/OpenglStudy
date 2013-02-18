@@ -1,38 +1,39 @@
-/* The abstract base class for camera and items
- * 	code by Huang yi
- */
+#ifndef _glObject_H_
+#define _glObject_H_
+   
+#include "glObjectBase.h"
+#include "math3d.h"
 
-#ifndef _glObject_
-#define _glObject_
-#include <GL\glew.h>
-#include <GL\glut.h>
-#include "math3d.h"	
-class glObject
+class glObject :
+	public glObjectBase
 {
-protected:
-	Vector3f vOrigin;
-	Vector3f vForward;
-	Vector3f vUp;
 public:
-	glObject(void){}
-	virtual ~glObject(void){};
+	glObject(void);
+	~glObject(void);
+
 	// Set Origin Location
-	virtual void SetOrigin(const Vector3f vPoint)=0;
-	virtual void SetOrigin(float x, float y, float z)=0;
-	virtual float GetOriginX(void)=0;
-	virtual float GetOriginY(void)=0;
-	virtual float GetOriginZ(void)=0;
-	
+	virtual void SetOrigin(const Vector3f vPoint);
+	virtual void SetOrigin(float x, float y, float z);
+	virtual float GetOriginX(void);
+	virtual float GetOriginY(void);
+	virtual float GetOriginZ(void);
+
 	// Move along axis
-	virtual void MoveForward(float fDelta)=0;
-	virtual void MoveUp(float fDelta)=0;
-	virtual void MoveRight(float fDelta)=0;
+	virtual void MoveForward(float fDelta);
+	virtual void MoveUp(float fDelta);
+	virtual void MoveRight(float fDelta);
 
 	// rotate camera
-	virtual void RotateLocalX(float fAngle)=0;
-	virtual void RotateLocalY(float fAngle)=0;
-	virtual void RotateLocalZ(float fAngle)=0;
+	virtual void RotateLocalX(float fAngle);
+	virtual void RotateLocalY(float fAngle);
+	virtual void RotateLocalZ(float fAngle);
 	
-	virtual void show()=0;
+	virtual void show();
+
+	void ApplyActorTransform();
+	virtual void draw();
 };
-#endif // !_glObject_
+
+
+#endif // !_glObject_H_
+

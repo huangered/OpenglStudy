@@ -81,15 +81,16 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="glCommonObject.h" />
+    <ClInclude Include="Common.h" />
     <ClInclude Include="glObject.h" />
+    <ClInclude Include="glObjectBase.h" />
     <ClInclude Include="math3d.h" />
     <ClInclude Include="glCamera.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="glCommonObject.cpp" />
+    <ClCompile Include="glObject.cpp" />
     <ClCompile Include="math3d.cpp" />
     <ClCompile Include="glCamera.cpp" />
     <ClCompile Include="stdafx.cpp">

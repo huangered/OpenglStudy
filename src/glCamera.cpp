@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "glCamera.h"
-#include <math.h>
+
 glCamera::glCamera(void)
 {
 	// At origin

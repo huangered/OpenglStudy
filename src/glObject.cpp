@@ -1,8 +1,7 @@
 #include "stdafx.h"
-#include "glCommonObject.h"
+#include "glObject.h"
 
-
-glCommonObject::glCommonObject(void)
+glObject::glObject(void)
 {
 	// At origin
 	vOrigin[0] = 0.0f;
@@ -21,54 +20,54 @@ glCommonObject::glCommonObject(void)
 }
 
 
-glCommonObject::~glCommonObject(void)
+glObject::~glObject(void)
 {
 	printf("object is dead.");
 }
 
 
-void glCommonObject::SetOrigin(const Vector3f vPoint)
+void glObject::SetOrigin(const Vector3f vPoint)
 {
 	CopyVector3(vOrigin,vPoint);
 }
 
-void glCommonObject::SetOrigin(float x, float y, float z)
+void glObject::SetOrigin(float x, float y, float z)
 {
 	vOrigin[0] = x;
 	vOrigin[1] = y;
 	vOrigin[2] = z;
 }
 
-float glCommonObject::GetOriginX(void)
+float glObject::GetOriginX(void)
 {
 	return vOrigin[0]; 
 }
 
-float glCommonObject::GetOriginY(void) 
+float glObject::GetOriginY(void) 
 {
 	return vOrigin[1]; 
 }
 
-float glCommonObject::GetOriginZ(void)
+float glObject::GetOriginZ(void)
 {
 	return vOrigin[2];
 }
 
-void glCommonObject::MoveForward(float fDelta)
+void glObject::MoveForward(float fDelta)
 {		
 	vOrigin[0] += vForward[0] * fDelta;
 	vOrigin[1] += vForward[1] * fDelta;
 	vOrigin[2] += vForward[2] * fDelta;
 }
 
-void glCommonObject::MoveUp(float fDelta)
+void glObject::MoveUp(float fDelta)
 {
 	vOrigin[0] += vUp[0] * fDelta;
 	vOrigin[1] += vUp[1] * fDelta;
 	vOrigin[2] += vUp[2] * fDelta;
 }
 
-void glCommonObject::MoveRight(float fDelta)
+void glObject::MoveRight(float fDelta)
 {
 	Vector3f vCross;
 	CrossProduct(vCross,vUp,vForward);
@@ -78,7 +77,7 @@ void glCommonObject::MoveRight(float fDelta)
 	vOrigin[2] += vCross[2] * fDelta;
 }
 
-void glCommonObject::RotateLocalX(float fAngle)
+void glObject::RotateLocalX(float fAngle)
 {
 	Matrix44f rotMat;
 	Vector3f vCross;
@@ -99,7 +98,7 @@ void glCommonObject::RotateLocalX(float fAngle)
 	CopyVector3(vUp, newVect);
 }
 
-void glCommonObject::RotateLocalY(float fAngle)
+void glObject::RotateLocalY(float fAngle)
 {
 	Matrix44f rotMat;
 
@@ -117,7 +116,7 @@ void glCommonObject::RotateLocalY(float fAngle)
 	CopyVector3(vForward, newVect);
 }
 		
-void glCommonObject::RotateLocalZ(float fAngle)
+void glObject::RotateLocalZ(float fAngle)
 {
 	Matrix44f rotMat;
 
@@ -132,7 +131,7 @@ void glCommonObject::RotateLocalZ(float fAngle)
 	CopyVector3(vUp, newVect);
 }
 
-void glCommonObject::ApplyActorTransform()
+void glObject::ApplyActorTransform()
 {
 	Matrix44f rotMat;
 
@@ -142,7 +141,7 @@ void glCommonObject::ApplyActorTransform()
 	glMultMatrixf(rotMat);
 }
 
-void glCommonObject::draw()
+void glObject::draw()
 {
 	glBegin(GL_LINES);
 		glColor3ub(128,0,128);
@@ -152,9 +151,9 @@ void glCommonObject::draw()
 	glEnd();
 	//glutSolidCube(1);
 }
-void glCommonObject::show()
+void glObject::show()
 {
 	printf("obj:  Origin :=%5.3f    ;%5.3f    ;%5.3f\n",vOrigin[0],vOrigin[1],vOrigin[2]);
-	printf("obj:  Forward:=%5.3f    ;%5.3f    ;%5.3f\n",vForward[0],vForward[1],vForward[2]);
-	printf("obj:  Up     :=%5.3f    ;%5.3f    ;%5.3f\n",vUp[0],vUp[1],vUp[2]);
+	printf("      Forward:=%5.3f    ;%5.3f    ;%5.3f\n",vForward[0],vForward[1],vForward[2]);
+	printf("      Up     :=%5.3f    ;%5.3f    ;%5.3f\n",vUp[0],vUp[1],vUp[2]);
 }

@@ -1,10 +1,7 @@
-#pragma once
+#ifndef _math3d_H_
+#define _math3d_H_
 
-#include "stdafx.h"
 #include <math.h>
-#include <memory.h>
-#include <GL\glew.h>
-#include <GL\glut.h>
 
 typedef float Vector2f[2];		// vector of two floats (x, y)
 typedef float Vector3f[3];		// vector of three floats (x, y, z)
@@ -41,3 +38,6 @@ void CrossProduct(Vector3f result, const Vector3f u, const Vector3f v);
 void RotationMatrix44(Matrix44f m, float angle, float x, float y, float z);
 void SetMatrixColumn44(Matrix44f m, const Vector3f v, int col);
 void GetMatrix(Matrix44f matrix, const Vector3f vOrigin, const Vector3f vUp, const Vector3f vForward);
+
+#endif // !_math3d_H_
+

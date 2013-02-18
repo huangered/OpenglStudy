@@ -5,12 +5,12 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "glCamera.h"
-#include "glCommonObject.h"
+#include "glObject.h"
 #include <math.h>
 #include <stdlib.h>
-
+#include <ctype.h>
 glCamera camera;
-glCommonObject obj;
+glObject obj;
 
 unsigned int interval=500;
 void RenderScene(void);
@@ -39,9 +39,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	return 0;
 }
 void KeyFunction(unsigned char key, int x, int y)
-{
-	printf("%d\n",key);
-	switch (key)
+{			
+	printf("%c\n",key);
+	switch (tolower(key))
 	{
 	case 'w':
 		camera.MoveForward(1.0f);
@@ -65,6 +65,14 @@ void KeyFunction(unsigned char key, int x, int y)
 		break;
 	case ' ':
 		camera.MoveUp(1.0f);
+		glutPostRedisplay();
+		break;
+	case 'q':
+		camera.RotateLocalY(3.14/180);
+		glutPostRedisplay();
+		break;
+	case 'e':
+		camera.RotateLocalY(-3.14/180);
 		glutPostRedisplay();
 		break;
 	default:
